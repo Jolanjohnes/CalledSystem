@@ -1,9 +1,14 @@
-import './App.css'
+import { Header } from './components/Header'
+import { Called } from './pages/Called'
 
 function App() {
   return (
     <div className="App">
-      <h1>Hello</h1>
+      <Header />
+      <Called />
+      <footer>
+        <p>ddafkdjsfakljç</p>
+      </footer>
     </div>
   )
 }

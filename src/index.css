@@ -4,12 +4,41 @@
   font-weight: 400;
 
   color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  color: rgb(238, 229, 233);
+  background-color: #08415c;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
+
+  --indigodye: #08415c;
+  --persianred: #cc2936;
+  --slategray: #6b818c;
+  --peach: #f1bf98;
+  --lavenderblush: #eee5e9;
+
+  --Bg: #08415c;
+  --BgSuave: #a1c6ea;
+  --azul: #b6f9c9;
+  --verde: #6cae75;
+  --ararelo: #ffc857;
 }
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  max-width: 1024px;
+  margin-inline: auto;
+}
+
+/* indigo dye #08415C
+persian red #CC2936
+slate gray #6B818C
+peach #F1BF98
+lavender blush #EEE5E9 */
