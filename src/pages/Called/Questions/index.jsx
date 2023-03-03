@@ -1,4 +1,10 @@
-import { WrapperQuestion, WrapperField, WrapperContact } from './styles.js'
+import { useState } from 'react'
+import {
+  WrapperQuestion,
+  WrapperField,
+  WrapperContact,
+  WrapperResume
+} from './styles.js'
 
 export function Identification() {
   return (
@@ -30,38 +36,78 @@ export function Identification() {
 
 export function Local() {
   return (
-    <div>
-      <div>
+    <WrapperQuestion>
+      <legend>Identificação do Local</legend>
+      <WrapperField>
         <label htmlFor="">Informe sua unidade:</label>
         <select name="" id="">
           <option value="0">Selecione</option>
         </select>
-      </div>
+      </WrapperField>
 
-      <div>
+      <WrapperField>
         <label htmlFor="">Informe sua setor:</label>
         <select name="" id="">
           <option value="0">Selecione</option>
         </select>
-      </div>
-    </div>
+      </WrapperField>
+    </WrapperQuestion>
   )
 }
 
 export function Descripition() {
   return (
-    <div>
-      <div>
+    <WrapperQuestion>
+      <legend>Descrição do problema</legend>
+      <WrapperField>
         <label htmlFor="">Classifique a natureza de seu problema</label>
         <select name="" id="">
           <option value="0">Selecione</option>
         </select>
-      </div>
+      </WrapperField>
 
-      <div>
+      <WrapperField>
         <label htmlFor="">Informe sua setor:</label>
         <textarea name="" id="" cols="30" rows="10"></textarea>
-      </div>
-    </div>
+      </WrapperField>
+    </WrapperQuestion>
+  )
+}
+
+export function Resume() {
+  return (
+    <WrapperQuestion>
+      <legend>Resumo</legend>
+      <WrapperResume>
+        <h4>Nome Usuario</h4>
+        <label> 'Jolanjohnes Duarte'</label>
+
+        <h4>Cpf úsuario</h4>
+        <label> '999.999.999-99'</label>
+
+        <h4>Email</h4>
+        <label> 'johnes@gmail.com'</label>
+
+        <h4>Telefone</h4>
+        <label> '(98) 99238-3718'</label>
+
+        <h4>Unidade:</h4>
+        <label> 'Maternidade Benedito Leite'</label>
+
+        <h4>Setor:</h4>
+        <label> 'Prestação de Contas'</label>
+
+        <h4>Natureza</h4>
+        <label> 'Software'</label>
+
+        <h4>Descrição</h4>
+        <label>
+          'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Cupiditate,
+          quae consequatur perspiciatis voluptate architecto obcaecati,
+          consequuntur maxime est amet impedit maiores, commodi asperiores
+          voluptatem dolorem quis nostrum minima provident laboriosam?'
+        </label>
+      </WrapperResume>
+    </WrapperQuestion>
   )
 }

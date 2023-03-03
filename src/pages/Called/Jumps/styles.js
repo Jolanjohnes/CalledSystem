@@ -5,7 +5,7 @@ export const StepIcons = styled.div`
   justify-content: center;
   align-items: center;
   gap: 1rem;
-  padding-block: 1rem;
+  //padding-block: 1rem;
 
   svg {
     fill: EEE5E9;
