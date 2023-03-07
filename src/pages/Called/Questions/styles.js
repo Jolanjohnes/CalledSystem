@@ -26,12 +26,14 @@ export const WrapperField = styled.div`
 
   input,
   select,
-  textarea {
+  textarea,
+  option {
     margin-top: 0.3rem;
     border: none;
     border-radius: 0.3rem;
     padding: 0.5rem;
     outline: none;
+    color: white;
   }
 
   textarea {

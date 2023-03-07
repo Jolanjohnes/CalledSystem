@@ -40,6 +40,11 @@ export const Button = styled.button`
   border-radius: 0.3rem;
   transition: ease-in-out 0.3s;
 
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+
   :hover {
     background-color: #6cae75;
   }
