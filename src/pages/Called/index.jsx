@@ -91,12 +91,6 @@ export function Called() {
               Próximo <FcNext />
             </Button>
           )}
-
-          {/* <Button onClick={next}>
-            {jumps === 3 ? 'Enviar' : 'Próximo'}
-
-            {jumps === 3 ? <FiSend /> : <FcNext />}
-          </Button> */}
         </div>
       </div>
       <Footer />

@@ -1,10 +1,13 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import {
   WrapperQuestion,
   WrapperField,
   WrapperContact,
   WrapperResume
 } from './styles.js'
+
+import { db } from './../../../config/firebaseConfig.js'
+import { collection, query, getDocs, orderBy } from 'firebase/firestore'
 
 export function Identification({ formData, setFormData }) {
   return (
@@ -69,37 +72,25 @@ export function Identification({ formData, setFormData }) {
 export function Local({ setFormData }) {
   const [unitSected, setUnitSelect] = useState('defaulf')
   const [sectoresUnitSelected, setSectoresUnitSelected] = useState([])
+  const [units, setUnits] = useState([])
 
-  const units = [
-    {
-      code: '0txZyUzk80YBrnQIanDS',
-      name: 'unidade 1',
-      sectores: ['setor1unidade1', 'setor2unidade1']
-    },
-    {
-      code: 'A0STZnJWBhcbGfFHXGcr',
-      name: 'unidade 2',
-      sectores: ['setor1undiade2', 'setor2undiade2']
-    },
-    {
-      code: 'AwGtkfrRL26x0YU3Nwsq',
-      name: 'unidade 3',
-      sectores: ['setor1unidade3', 'setor2unidade3']
-    },
-    {
-      code: 'OQV1hqWAxP7AmzXyEU8h',
-      name: 'unidade 4',
-      sectores: ['setor1unidade4', 'setor2unidade4']
-    },
-    {
-      code: 'jMSM3aucqO8Ypnzf9VuR',
-      name: 'unidade 5',
-      sectores: ['setor1unidade5', 'setor2unidade5']
-    }
-  ]
+  async function getUnits() {
+    const unitsRef = collection(db, 'unidades')
+    const q = query(unitsRef, orderBy('nome', 'asc'))
+    const snaphost = await getDocs(q)
+    let listUnits = []
+    snaphost.forEach(unit => {
+      listUnits.push({
+        code: unit.id,
+        name: unit.data().nome,
+        sectores: unit.data().setores
+      })
+    })
+
+    setUnits(listUnits)
+  }
 
   function selectedUnit(e) {
-    console.log(e)
     setUnitSelect(e)
 
     if (e != 'default') {
@@ -112,6 +103,10 @@ export function Local({ setFormData }) {
       setSectoresUnitSelected([])
     }
   }
+
+  useEffect(() => {
+    getUnits()
+  }, [])
 
   return (
     <WrapperQuestion>
