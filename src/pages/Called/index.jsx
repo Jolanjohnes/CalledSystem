@@ -1,6 +1,9 @@
 import { WrapperCalled, Button } from './styles'
 import { Jumps } from './Jumps'
-import { Identification, Local, Description, Resume } from './Questions'
+import { Identification } from './Questions/Identification'
+import { Local } from './Questions/Local'
+import { Description } from './Questions/Descripition'
+import { Resume } from './Questions/Resume'
 
 import { Header } from './../../components/Header'
 import { Footer } from './../../components/Footer'
@@ -8,6 +11,10 @@ import { useState } from 'react'
 
 import { FcPrevious, FcNext } from 'react-icons/fc'
 import { FiSend } from 'react-icons/fi'
+
+import { db } from '../../config/firebaseConfig'
+import { addDoc, Timestamp, collection } from 'firebase/firestore'
+import { Load } from '../../components/Load'
 
 export function Called() {
   const InitialFomr = {
@@ -23,6 +30,7 @@ export function Called() {
 
   const [jumps, setJumps] = useState(0)
   const [formData, setFormData] = useState(InitialFomr)
+  const [loading, setLoading] = useState(false)
 
   function next() {
     if (jumps < 3) setJumps(state => state + 1)
@@ -34,19 +42,25 @@ export function Called() {
     }
   }
 
-  const sendCalled = () => {
-    const apiWthast = `https://wa.me/5598992383718?text=*NOVO CHAMADO ABERTO - Nº -----*\n\n
-    *Nome do úsuario:* ${formData.nameUser}\n
-    *Email úsuario:* ${formData.emailUser}\n
-    *Tel:* ${formData.phone}\n
-    *unidade:* ${formData.unit}\n
-    *setor: ${formData.sector}\n
-    *Natureza do Problema: ${formData.especification}\n
-    *Descrição do Problema:* ${formData.description}\n
-    `
-    const msgEncode = encodeURI(apiWthast)
+  async function sendCalled() {
+    // const apiWthast = `https://wa.me/5598992383718?text=*NOVO CHAMADO ABERTO - Nº -----*\n\n
+    // *Nome do úsuario:* ${formData.nameUser}\n
+    // *Email úsuario:* ${formData.emailUser}\n
+    // *Tel:* ${formData.phone}\n
+    // *unidade:* ${formData.unit}\n
+    // *setor: ${formData.sector}\n
+    // *Natureza do Problema: ${formData.especification}\n
+    // *Descrição do Problema:* ${formData.description}\n
+    // `
+    // const msgEncode = encodeURI(apiWthast)
+    // return msgEncode
+    setLoading(true)
+    const timestamp = Timestamp.fromDate(new Date())
+    const docData = { ...formData, createAt: timestamp, status: 0 }
 
-    return msgEncode
+    const docRef = await addDoc(collection(db, 'called'), docData)
+
+    setLoading(false)
   }
 
   function showQuestion(jump) {
@@ -70,6 +84,8 @@ export function Called() {
       <div className="main">
         <Jumps jump={jumps} />
 
+        {loading ? <Load modulo={'Registro de Chamado!'} /> : ''}
+
         {showQuestion(jumps)}
 
         <div className="btns">
@@ -80,10 +96,12 @@ export function Called() {
           )}
 
           {jumps === 3 ? (
-            <Button>
-              <a href={sendCalled()} target="_blank" rel="noopener noreferrer">
-                ENVIAR
-              </a>
+            <Button
+              onClick={() => {
+                sendCalled()
+              }}
+            >
+              ENVIAR
               <FiSend />
             </Button>
           ) : (
