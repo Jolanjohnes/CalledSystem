@@ -5,18 +5,27 @@ import { MdDescription } from 'react-icons/md'
 import { IoIosSend } from 'react-icons/io'
 import { RiSeparator } from 'react-icons/ri'
 
-export function Jumps({ jump }) {
-  const COLOR_SELECTION = '#6CAE75'
+import { useContext } from 'react'
+import { contextCalled } from '../../../contexts/calledContext'
+
+export function Jumps() {
+  const COLOR_SELECTION = '#ffc857'
+  const { jumps } = useContext(contextCalled)
+
+  if (jumps === 4) {
+    return
+  }
+
   return (
     <div>
       <StepIcons>
-        <ImUser color={jump >= 0 ? COLOR_SELECTION : ''} />
-        <RiSeparator color={jump >= 1 ? COLOR_SELECTION : ''} />
-        <RiMapPinUserFill color={jump >= 1 ? COLOR_SELECTION : ''} />
-        <RiSeparator color={jump >= 2 ? COLOR_SELECTION : ''} />
-        <MdDescription color={jump >= 2 ? COLOR_SELECTION : ''} />
-        <RiSeparator color={jump >= 3 ? COLOR_SELECTION : ''} />
-        <IoIosSend color={jump >= 3 ? COLOR_SELECTION : ''} />
+        <ImUser color={jumps >= 0 ? COLOR_SELECTION : ''} />
+        <RiSeparator color={jumps >= 1 ? COLOR_SELECTION : ''} />
+        <RiMapPinUserFill color={jumps >= 1 ? COLOR_SELECTION : ''} />
+        <RiSeparator color={jumps >= 2 ? COLOR_SELECTION : ''} />
+        <MdDescription color={jumps >= 2 ? COLOR_SELECTION : ''} />
+        <RiSeparator color={jumps >= 3 ? COLOR_SELECTION : ''} />
+        <IoIosSend color={jumps >= 3 ? COLOR_SELECTION : ''} />
       </StepIcons>
     </div>
   )

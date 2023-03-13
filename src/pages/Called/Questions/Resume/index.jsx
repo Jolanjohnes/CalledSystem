@@ -1,5 +1,9 @@
 import { WrapperQuestion, WrapperResume } from './../styles'
-export function Resume({ formData }) {
+import { useContext } from 'react'
+import { contextCalled } from '../../../../contexts/calledContext'
+
+export function Resume() {
+  const { formData } = useContext(contextCalled)
   return (
     <WrapperQuestion>
       <legend>Resumo</legend>
@@ -23,7 +27,7 @@ export function Resume({ formData }) {
         <label>{formData.sector}</label>
 
         <h4>Natureza:</h4>
-        <label>{formData.especification}</label>
+        <label>{formData.specification}</label>
 
         <h4>Descrição:</h4>
         <label>{formData.description}</label>

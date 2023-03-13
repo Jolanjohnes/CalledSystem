@@ -1,6 +1,10 @@
 import { WrapperQuestion, WrapperField, WrapperContact } from './../styles'
+import { useContext } from 'react'
+import { contextCalled } from './../../../../contexts/calledContext'
 
-export function Identification({ formData, setFormData }) {
+export function Identification() {
+  const { formData, setFormData } = useContext(contextCalled)
+
   return (
     <WrapperQuestion>
       <legend>Identificação do úsuario</legend>

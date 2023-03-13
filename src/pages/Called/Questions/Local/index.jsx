@@ -1,56 +1,33 @@
 import { WrapperQuestion, WrapperField } from './../styles'
-import { useState, useEffect } from 'react'
-import { Load } from '../../../../components/Load'
-import { db } from '../../../../config/firebaseConfig'
-import { collection, query, orderBy, getDocs } from 'firebase/firestore'
+import { useState } from 'react'
 
-export function Local({ setFormData }) {
-  const [unitSected, setUnitSelect] = useState('defaulf')
+import { useContext } from 'react'
+import { contextCalled } from '../../../../contexts/calledContext'
+
+export function Local() {
+  const { setFormData, listUnits } = useContext(contextCalled)
+
+  const [unitSected, setUnitSelect] = useState('default')
   const [sectoresUnitSelected, setSectoresUnitSelected] = useState([])
-  const [units, setUnits] = useState([])
-
-  const [loading, setLoading] = useState(true)
-
-  async function getUnits() {
-    const unitsRef = collection(db, 'unidades')
-    const q = query(unitsRef, orderBy('nome', 'asc'))
-    const snaphost = await getDocs(q)
-    let listUnits = []
-    snaphost.forEach(unit => {
-      listUnits.push({
-        code: unit.id,
-        name: unit.data().nome,
-        sectores: unit.data().setores
-      })
-    })
-
-    setUnits(listUnits)
-    setLoading(false)
-  }
 
   function selectedUnit(e) {
     setUnitSelect(e)
 
     if (e != 'default') {
-      const index = units.findIndex(item => item.code == e)
+      const index = listUnits.findIndex(item => item.code == e)
       setFormData(state => {
-        return { ...state, unit: units[index].name }
+        return { ...state, unit: listUnits[index].name }
       })
-      setSectoresUnitSelected(units[index].sectores)
+      setSectoresUnitSelected(listUnits[index].sectores)
     } else {
       setSectoresUnitSelected([])
     }
   }
 
-  useEffect(() => {
-    getUnits()
-  }, [])
-
   return (
     <WrapperQuestion>
       <legend>Identificação do Local</legend>
       <WrapperField>
-        {loading ? <Load modulo={'Unidades'} /> : ''}
         <label htmlFor="">Informe sua unidade: </label>
         <select
           name=""
@@ -59,7 +36,7 @@ export function Local({ setFormData }) {
           onChange={e => selectedUnit(e.target.value)}
         >
           <option value="default">Selecione</option>
-          {units.map(unit => {
+          {listUnits.map(unit => {
             return (
               <option value={unit.code} key={unit.code}>
                 {unit.name}
@@ -80,7 +57,7 @@ export function Local({ setFormData }) {
             })
           }}
         >
-          <option value="defaulf">Selecione</option>
+          <option value="default">Selecione</option>
 
           {sectoresUnitSelected.map((sector, index) => {
             return (

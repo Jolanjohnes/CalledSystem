@@ -2,6 +2,7 @@ import styled from 'styled-components'
 
 export const WrapperQuestion = styled.fieldset`
   width: 80%;
+  height: 100%;
   padding: 1rem;
   border-radius: 0.3rem;
 
