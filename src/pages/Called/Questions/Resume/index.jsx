@@ -1,12 +1,20 @@
 import { WrapperQuestion, WrapperResume } from './../styles'
 import { useContext } from 'react'
 import { contextCalled } from '../../../../contexts/calledContext'
+import { Load } from '../../../../components/Load'
 
 export function Resume() {
-  const { formData } = useContext(contextCalled)
+  const { formData, loading } = useContext(contextCalled)
   return (
     <WrapperQuestion>
       <legend>Resumo</legend>
+      {loading ? (
+        <h4>
+          Registrando seu Chamado <Load />
+        </h4>
+      ) : (
+        ''
+      )}
       <WrapperResume>
         <h4>Nome úsuario:</h4>
         <label>{formData.nameUser}</label>

@@ -10,12 +10,7 @@ const rotate = keyframes`
   }
 `
 
-export const WrapperLoad = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  gap: 0.5rem;
-
+export const WrapperLoad = styled.span`
   svg {
     animation: ${rotate} 3s linear infinite;
   }

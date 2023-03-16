@@ -1,13 +1,7 @@
 import styled from 'styled-components'
+import { WrapperMain } from './../../global'
 
-export const WrapperCalled = styled.div`
-  max-width: 1024px;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  justify-content: space-between;
-  gap: 0.5rem;
-
+export const WrapperCalled = styled(WrapperMain)`
   .main {
     width: 100%;
     height: 100%;

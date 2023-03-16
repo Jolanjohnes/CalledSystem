@@ -1,5 +1,5 @@
 import { WrapperCalled, Button } from './styles'
-import { useContext } from 'react'
+import { useContext, useEffect } from 'react'
 
 import { contextCalled } from './../../contexts/calledContext'
 
@@ -49,8 +49,6 @@ export function Called() {
       <Header />
       <div className="main">
         <Jumps jump={jumps} />
-
-        {loading ? <Load modulo={'Registro de Chamado!'} /> : ''}
 
         {showQuestion(jumps)}
 

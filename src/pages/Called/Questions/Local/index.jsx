@@ -1,14 +1,16 @@
 import { WrapperQuestion, WrapperField } from './../styles'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { useContext } from 'react'
 import { contextCalled } from '../../../../contexts/calledContext'
+import { Load } from '../../../../components/Load'
 
 export function Local() {
-  const { setFormData, listUnits } = useContext(contextCalled)
+  const { setFormData, getUnits, loading } = useContext(contextCalled)
 
   const [unitSected, setUnitSelect] = useState('default')
   const [sectoresUnitSelected, setSectoresUnitSelected] = useState([])
+  const [listUnits, setListUnits] = useState([])
 
   function selectedUnit(e) {
     setUnitSelect(e)
@@ -24,16 +26,29 @@ export function Local() {
     }
   }
 
+  async function loadUnits() {
+    const listUnits = await getUnits()
+    setListUnits(listUnits)
+  }
+
+  useEffect(() => {
+    loadUnits()
+  }, [])
+
   return (
     <WrapperQuestion>
       <legend>Identificação do Local</legend>
       <WrapperField>
-        <label htmlFor="">Informe sua unidade: </label>
+        <div>
+          <label htmlFor="">Informe sua unidade: </label>
+          {loading ? <Load /> : ''}
+        </div>
         <select
           name=""
           id=""
           value={unitSected}
           onChange={e => selectedUnit(e.target.value)}
+          disabled={loading}
         >
           <option value="default">Selecione</option>
           {listUnits.map(unit => {
@@ -56,6 +71,7 @@ export function Local() {
               return { ...state, sector: e.target.value }
             })
           }}
+          disabled={loading}
         >
           <option value="default">Selecione</option>
 

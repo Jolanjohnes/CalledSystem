@@ -4,9 +4,10 @@ import {
   getDocs,
   orderBy,
   query,
-  Timestamp
+  Timestamp,
+  where
 } from 'firebase/firestore'
-import { createContext, useEffect, useState } from 'react'
+import { createContext, useState } from 'react'
 import { db } from '../config/firebaseConfig'
 
 export const contextCalled = createContext({})
@@ -21,13 +22,10 @@ const INITIAL_FORM = {
   description: ''
 }
 
-export function ContextProvider({ children }) {
+export function CalledProvider({ children, action }) {
   const [formData, setFormData] = useState(INITIAL_FORM)
   const [loading, setLoading] = useState(false)
   const [jumps, setJumps] = useState(0)
-
-  const [listUnits, setListUnit] = useState([])
-  const [listSpecification, setListSpecification] = useState([])
 
   function nextQuestion() {
     if (jumps < 4) {
@@ -65,6 +63,7 @@ export function ContextProvider({ children }) {
   }
 
   async function getUnits() {
+    setLoading(true)
     const list = []
     const especRef = collection(db, 'unidades')
     const q = query(especRef, orderBy('nome', 'asc'))
@@ -77,8 +76,8 @@ export function ContextProvider({ children }) {
         sectores: unit.data().setores
       })
     })
-
-    setListUnit(list)
+    setLoading(false)
+    return list
   }
 
   async function getSpecification() {
@@ -94,13 +93,44 @@ export function ContextProvider({ children }) {
       })
     })
 
-    setListSpecification(list)
+    return list
   }
 
-  useEffect(() => {
-    getUnits()
-    getSpecification()
-  }, [])
+  async function getOpenCalled(email) {
+    setLoading(true)
+
+    const openCalled = collection(db, 'called')
+    const q = query(
+      openCalled,
+      where('emailUser', '==', email),
+      orderBy('createAt', 'desc')
+    )
+    const snapshot = await getDocs(q)
+
+    const docs = []
+
+    if (snapshot.empty) {
+      setLoading(false)
+      return docs
+    }
+
+    snapshot.forEach(item => {
+      docs.push({
+        code: item.id,
+        nomeUser: item.data().nameUser,
+        specification: item.data().specification,
+        createAt: new Date(
+          item.data().createAt.seconds * 1000
+        ).toLocaleDateString('pt-br'),
+        modification: item.data().modification,
+        status: item.data().status
+      })
+    })
+
+    setLoading(false)
+
+    return docs
+  }
 
   return (
     <contextCalled.Provider
@@ -113,8 +143,9 @@ export function ContextProvider({ children }) {
         previousQuestion,
         newCalled,
         sendCalled,
-        listUnits,
-        listSpecification
+        getOpenCalled,
+        getUnits,
+        getSpecification
       }}
     >
       {children}

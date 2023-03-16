@@ -25,6 +25,13 @@ export const WrapperField = styled.div`
   width: 100%;
   margin-bottom: 0.5rem;
 
+  div {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    gap: 0.5rem;
+  }
+
   input,
   select,
   textarea,

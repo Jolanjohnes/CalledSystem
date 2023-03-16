@@ -1,16 +1,31 @@
-import { useContext } from 'react'
+import { useContext, useState, useEffect } from 'react'
 import { WrapperQuestion, WrapperField } from './../styles.js'
 
 import { contextCalled } from '../../../../contexts/calledContext.jsx'
+import { Load } from '../../../../components/Load/index.jsx'
 
 export function Description() {
-  const { formData, setFormData, listSpecification } = useContext(contextCalled)
+  const { formData, setFormData, getSpecification, loading } =
+    useContext(contextCalled)
+  const [listSpecification, setListSpecification] = useState([])
+
+  async function loadSpecification() {
+    const listSpec = await getSpecification()
+    setListSpecification(listSpec)
+  }
+
+  useEffect(() => {
+    loadSpecification()
+  }, [])
 
   return (
     <WrapperQuestion>
       <legend>Descrição do problema</legend>
       <WrapperField>
-        <label htmlFor="">Classifique a natureza de seu problema</label>
+        <div>
+          {loading ? <Load /> : ''}
+          <label htmlFor="">Classifique a natureza de seu problema</label>
+        </div>
         <select
           name=""
           id=""
