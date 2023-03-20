@@ -1,13 +1,6 @@
 import { WrapperMain } from './../../global'
 import { FollowMain } from './styles'
 
-import {
-  MdOutlineSentimentDissatisfied,
-  MdSentimentNeutral,
-  MdOutlineSentimentSatisfied,
-  MdOutlineSentimentVerySatisfied
-} from 'react-icons/md'
-
 import { useContext, useState } from 'react'
 import { Footer } from '../../components/Footer'
 import { Header } from '../../components/Header'

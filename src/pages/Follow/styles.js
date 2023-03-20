@@ -38,8 +38,4 @@ export const FollowMain = styled.div`
     gap: 1rem;
     width: 100%;
   }
-
-  p {
-    font-size: 1.5rem;
-  }
 `

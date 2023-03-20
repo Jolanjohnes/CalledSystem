@@ -22,7 +22,7 @@ const INITIAL_FORM = {
   description: ''
 }
 
-export function CalledProvider({ children, action }) {
+export function CalledProvider({ children }) {
   const [formData, setFormData] = useState(INITIAL_FORM)
   const [loading, setLoading] = useState(false)
   const [jumps, setJumps] = useState(0)
@@ -123,12 +123,41 @@ export function CalledProvider({ children, action }) {
           item.data().createAt.seconds * 1000
         ).toLocaleDateString('pt-br'),
         modification: item.data().modification,
-        status: item.data().status
+        status: item.data().status,
+        avaliation: item.data().avaliation,
+        description: item.data().description
       })
     })
 
     setLoading(false)
 
+    return docs
+  }
+
+  async function getEventsCalled(calledCode) {
+    setLoading(true)
+
+    const eventCalled = collection(db, `called/${calledCode}/events`)
+    const q = query(eventCalled, orderBy('createAt', 'asc'))
+    const snapshot = await getDocs(q)
+
+    const docs = []
+
+    if (snapshot.empty) {
+      setLoading(false)
+      return docs
+    }
+
+    snapshot.forEach(item => {
+      docs.push({
+        createAt: new Date(
+          item.data().createAt.seconds * 1000
+        ).toLocaleDateString('pt-br'),
+        description: item.data().description
+      })
+    })
+
+    setLoading(false)
     return docs
   }
 
@@ -145,7 +174,8 @@ export function CalledProvider({ children, action }) {
         sendCalled,
         getOpenCalled,
         getUnits,
-        getSpecification
+        getSpecification,
+        getEventsCalled
       }}
     >
       {children}
