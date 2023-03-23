@@ -4,61 +4,44 @@ export const WrapperCard = styled.div`
   align-self: flex-start;
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  width: 100%;
 
-  flex-grow: 1;
   border: 1px solid #eee5e9;
   border-radius: 0.5rem;
   padding: 1rem;
-  width: 100%;
-
-  transition: ease-in-out width 1s;
 
   :hover {
     background-color: rgba(0, 0, 0, 0.5);
   }
+`
 
-  div {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
+export const HeaderCard = styled.div`
+  display: flex;
+  justify-content: space-between;
 
-  button {
-    cursor: pointer;
-    background-color: #eee5e9;
-    color: #08415c;
+  span {
     font-weight: 700;
-    transition: ease-in-out 0.2s;
-    border: none;
-    border-radius: 0.5rem;
-    padding: 0.5rem;
-
-    :hover {
-      background-color: #ffc857;
-    }
-
-    :disabled {
-      display: none;
-    }
   }
 `
 
-export const Result = styled.div`
+export const DetailCard = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  justify-content: center;
-  width: 100%;
-  gap: 0.5rem;
 
-  div {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    div: {
-      margin-top: 0.5rem;
-    }
+  button {
+    border: none;
+    background: none;
+    cursor: pointer;
   }
+
+  .action {
+    margin-top: 0.5rem;
+    padding: 0.5rem;
+    border: 1px solid #eee5e9;
+    border-radius: 0.5rem;
+  }
+`
+
+export const OpenCalled = styled.div`
+  display: absolute;
 `

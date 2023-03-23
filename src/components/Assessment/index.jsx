@@ -35,22 +35,24 @@ export function Assessment({ avaliation }) {
     })
 
     return (
-      <p className="active">
-        {emotions[index].icon} {emotions[index].description}
-      </p>
+      <div>
+        {emotions[index].icon}
+        <p>{emotions[index].description}</p>
+      </div>
     )
   }
 
   return (
     <Emotion>
       {avaliation ? (
-        <p>{getEmotion()}</p>
+        <>{getEmotion()}</>
       ) : (
-        emotions.map((item, index) => {
+        emotions.map(item => {
           return (
-            <p key={item.code + index}>
-              {item.icon} {item.description}
-            </p>
+            <div>
+              {item.icon}
+              <p>{item.description}</p>
+            </div>
           )
         })
       )}

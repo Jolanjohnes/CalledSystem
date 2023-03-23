@@ -26,7 +26,6 @@ export function Follow() {
 
   return (
     <WrapperMain>
-      <Header />
       <FollowMain>
         <div className="form">
           <h2>Acompanhe seu chamado</h2>
@@ -39,7 +38,6 @@ export function Follow() {
               setEmail(e.target.value)
             }}
           />
-
           <button onClick={show}>Buscar {loading ? <Load /> : ''}</button>
         </div>
 
@@ -50,10 +48,9 @@ export function Follow() {
             })}
           </div>
         ) : (
-          <p>{msg}</p>
+          ''
         )}
       </FollowMain>
-      <Footer />
     </WrapperMain>
   )
 }

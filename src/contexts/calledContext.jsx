@@ -1,11 +1,13 @@
 import {
   addDoc,
+  doc,
   collection,
   getDocs,
   orderBy,
   query,
   Timestamp,
-  where
+  where,
+  updateDoc
 } from 'firebase/firestore'
 import { createContext, useState } from 'react'
 import { db } from '../config/firebaseConfig'
@@ -161,6 +163,19 @@ export function CalledProvider({ children }) {
     return docs
   }
 
+  async function updateCalled(idCalled, param) {
+    setLoading(true)
+
+    const calledRef = doc(db, `called/${idCalled}`)
+
+    const snapshot = await updateDoc(calledRef, {
+      status: param
+    })
+
+    console.log(snapshot)
+    setLoading(false)
+  }
+
   return (
     <contextCalled.Provider
       value={{
@@ -175,7 +190,8 @@ export function CalledProvider({ children }) {
         getOpenCalled,
         getUnits,
         getSpecification,
-        getEventsCalled
+        getEventsCalled,
+        updateCalled
       }}
     >
       {children}

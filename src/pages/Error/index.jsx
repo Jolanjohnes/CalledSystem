@@ -1,4 +1,4 @@
-import { useRouteError } from 'react-router-dom'
+import { Link, useRouteError } from 'react-router-dom'
 import { TbError404 } from 'react-icons/tb'
 import { WrapperERROR } from './styles'
 
@@ -19,7 +19,7 @@ export function ErrorPage() {
         </div>
       </div>
 
-      <a href="/newCalled">Clique aqui para voltar ao ínicio</a>
+      <Link to={'/'}>Voltar a página inicial</Link>
     </WrapperERROR>
   )
 }

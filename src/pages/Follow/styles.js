@@ -4,7 +4,7 @@ export const FollowMain = styled.div`
   display: flex;
   flex-direction: row;
   gap: 3rem;
-  align-items: center;
+  // align-items: center;
   padding: 1rem 2rem;
 
   .form {

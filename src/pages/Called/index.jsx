@@ -10,10 +10,6 @@ import { Description } from './Questions/Descripition'
 import { Resume } from './Questions/Resume'
 import { Message } from './Questions/Message'
 
-import { Header } from './../../components/Header'
-import { Footer } from './../../components/Footer'
-import { Load } from '../../components/Load'
-
 import { FcPrevious, FcNext } from 'react-icons/fc'
 import { FiSend } from 'react-icons/fi'
 
@@ -46,7 +42,6 @@ export function Called() {
 
   return (
     <WrapperCalled>
-      <Header />
       <div className="main">
         <Jumps jump={jumps} />
 
@@ -78,7 +73,6 @@ export function Called() {
           </Button>
         </div>
       </div>
-      <Footer />
     </WrapperCalled>
   )
 }
