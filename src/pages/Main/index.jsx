@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
-import { Welcome, WrapperList, Wrapper } from './styles'
+
+import { Welcome, Wrapper } from './styles'
 export function Main() {
   return (
     <Wrapper>

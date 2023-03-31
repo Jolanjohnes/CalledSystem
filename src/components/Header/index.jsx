@@ -21,7 +21,7 @@ export function Header() {
           <Link to={'/follow'}>Acompanhar Chamado</Link>
         </li>
         <li>
-          <Link to={'/login'}>Acesso a área restrita.</Link>
+          <Link to={'/auth'}>Acesso a área restrita.</Link>
         </li>
       </Menu>
 

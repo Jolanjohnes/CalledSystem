@@ -41,6 +41,8 @@ export const Welcome = styled.div`
     padding: 1rem;
     border-radius: 0.5rem;
     text-decoration: none;
+    text-transform: uppercase;
+    font-size: 0.8rem;
     font-weight: 700;
     :visited {
       color: #ffc857;
@@ -50,27 +52,6 @@ export const Welcome = styled.div`
       background-color: #eee5e9;
       color: #08415c;
       border-color: #08415c;
-    }
-  }
-`
-
-export const WrapperList = styled.div`
-  padding-top: 5rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  h2 {
-    margin-bottom: 1rem;
-  }
-
-  ul {
-    margin-bottom: 1rem;
-
-    li {
-      font-size: 1.2rem;
-      text-align: right;
-      list-style: none;
     }
   }
 `
