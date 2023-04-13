@@ -6,13 +6,9 @@ export const WrapperCard = styled.div`
   flex-direction: column;
   width: 100%;
 
-  border: 1px solid #eee5e9;
+  /* border: 1px solid #eee5e9; */
   border-radius: 0.5rem;
   padding: 1rem;
-
-  :hover {
-    background-color: rgba(0, 0, 0, 0.5);
-  }
 `
 
 export const HeaderCard = styled.div`
@@ -34,11 +30,19 @@ export const DetailCard = styled.div`
     cursor: pointer;
   }
 
+  .events {
+    margin-block: 1rem;
+  }
+
   .action {
     margin-top: 0.5rem;
     padding: 0.5rem;
     border: 1px solid #eee5e9;
     border-radius: 0.5rem;
+  }
+
+  .contacts {
+    margin-bottom: 1rem;
   }
 `
 

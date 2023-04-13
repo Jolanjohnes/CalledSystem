@@ -39,3 +39,32 @@ export const FollowMain = styled.div`
     width: 100%;
   }
 `
+export const Cards = styled.div`
+  border: 1px solid white;
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+
+  .btns {
+    margin-bottom: 1rem;
+
+    button {
+      padding: 0.5rem;
+      width: 5rem;
+      border-radius: 0.5rem;
+      border: 1px solid white;
+      background: none;
+
+      :hover {
+        transform: scale(0.95);
+        cursor: pointer;
+      }
+    }
+
+    button:first-child {
+      margin-right: 1rem;
+    }
+  }
+`

@@ -5,12 +5,13 @@ import { Load } from '../../components/Load'
 import { WrapperCard, HeaderCard, DetailCard, OpenCalled } from './styles'
 
 import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io'
+import { useEffect } from 'react'
 
-export function Card({ called }) {
-  const [view, setView] = useState(false)
+export function Card({ called, showDetails = false }) {
+  const [view, setView] = useState(showDetails)
   const [reabrir, setReabrir] = useState(false)
   const [events, setEvents] = useState([])
-  const { getEventsCalled, updateCalled } = useContext(contextCalled)
+  const { getEventsCalled, updateCalled, loading } = useContext(contextCalled)
 
   const ABERTO = 0
   const EM_ANDAMENTO = 1
@@ -25,24 +26,22 @@ export function Card({ called }) {
     'Reiniciado'
   ]
 
+  async function getDetail() {
+    const result = await getEventsCalled(called.code).then(res => res)
+    setEvents(result)
+  }
+
   async function handleViewDetail() {
-    if (view == false) {
-      const result = await getEventsCalled(called.code).then(res => res)
-      setEvents(result)
-      console.log(result)
-    }
+    // if (view == false) {
+    //   const result = await getEventsCalled(called.code).then(res => res)
+    //   setEvents(result)
+    // }
     setView(state => !state)
   }
 
-  function handleCloseOrOpenCalled(key) {
-    if (key == 'close') {
-      updateCalled(called.code, 3)
-      return
-    }
-
-    updateCalled(called.code, 0)
-    return
-  }
+  useEffect(() => {
+    getDetail()
+  }, [])
 
   return (
     <WrapperCard className="card">
@@ -50,6 +49,9 @@ export function Card({ called }) {
         <div>
           <p>
             <span>Codigo:</span> {called.code}{' '}
+          </p>
+          <p>
+            <span>Unidade:</span> {called.unit}{' '}
           </p>
           <p>
             <span>Especificação:</span> {called.specification}{' '}
@@ -77,36 +79,37 @@ export function Card({ called }) {
 
         {view && (
           <>
+            <div className="contacts">
+              <h4>Contatos</h4>
+              <p>
+                <span>Usuário:</span> {called.nomeUser}{' '}
+              </p>
+              <p>
+                <span>Tel.:</span>
+                {called.phone}
+              </p>
+              <p>
+                <span>Email.:</span>
+                {called.email}
+              </p>
+            </div>
+
             <div>
               <h4>Descirção do Problema (Usuário)</h4>
               <p>{called.description}</p>
             </div>
-            <div>
+
+            <div className="events">
               <h4>Ações Realizadas</h4>
+              {loading && (
+                <p>
+                  <Load /> Carregando...
+                </p>
+              )}
               {events.map((item, index) => {
                 return <Events key={index} item={item} />
               })}
             </div>
-            {called.status === AGUARDANDO_VALIDACAO && (
-              <div>
-                <button
-                  className="action"
-                  onClick={() => {
-                    handleCloseOrOpenCalled('close')
-                  }}
-                >
-                  Fechar Chamado
-                </button>{' '}
-                <button
-                  className="action"
-                  onClick={() => {
-                    handleCloseOrOpenCalled('open')
-                  }}
-                >
-                  Reabrir Chamado
-                </button>{' '}
-              </div>
-            )}
           </>
         )}
       </DetailCard>

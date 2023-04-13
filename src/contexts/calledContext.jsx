@@ -98,15 +98,25 @@ export function CalledProvider({ children }) {
     return list
   }
 
-  async function getOpenCalled(email) {
+  async function getOpenCalled(email, privatePage = false, unit) {
     setLoading(true)
 
     const openCalled = collection(db, 'called')
-    const q = query(
+    let q = query(
       openCalled,
       where('emailUser', '==', email),
       orderBy('createAt', 'desc')
     )
+
+    if (privatePage) {
+      q = query(
+        openCalled,
+        where('unit', 'in', unit),
+        where('status', 'in', [0, 1, 2, 3]),
+        orderBy('createAt', 'desc')
+      )
+    }
+
     const snapshot = await getDocs(q)
 
     const docs = []
@@ -119,15 +129,20 @@ export function CalledProvider({ children }) {
     snapshot.forEach(item => {
       docs.push({
         code: item.id,
+        avaliation: item.data().avaliation,
+        cpf: item.data().cpf,
         nomeUser: item.data().nameUser,
-        specification: item.data().specification,
         createAt: new Date(
           item.data().createAt.seconds * 1000
         ).toLocaleDateString('pt-br'),
-        modification: item.data().modification,
+        description: item.data().description,
+        email: item.data().email,
+        phone: item.data().phone,
+        sector: item.data().sector,
+        specification: item.data().specification,
         status: item.data().status,
-        avaliation: item.data().avaliation,
-        description: item.data().description
+        modification: item.data().modification,
+        unit: item.data().unit
       })
     })
 
